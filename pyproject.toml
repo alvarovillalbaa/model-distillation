@@ -4,11 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "model-distillation"
-version = "0.1.0"
+version = "0.2.0"
 description = "Verifier-gated teacher responses and preference-data primitives."
 requires-python = ">=3.11"
 license = {text = "MIT"}
-dependencies = []
+dependencies = ["verification-runtime @ git+https://github.com/alvarovillalbaa/verification-runtime.git@0f293f9808598a38f58f85563e1ccafd815bbd36"]
 
 [project.urls]
 Repository = "https://github.com/alvarovillalbaa/model-distillation"

@@ -6,13 +6,19 @@ Status: implemented. The README describes the implemented primitive scope; the i
 
 ## Responsibility
 
-Task/response records, exact-match verification, eligibility gates, and preference-pair construction.
+Task/response records, teacher eligibility, verification-result binding and
+preference-pair construction. Objective verification execution is owned by
+verification-runtime; Open Evals keeps general evaluation composition/scoring.
 
 ## First next work
 
 - [ ] Add a teacher registry and response lineage before real generation.
 - [ ] Integrate other verifiers through explicit result identities.
 - [ ] Keep model training and Open Evals integration optional.
+
+The 0.2 interface consumes verification-runtime results directly. Correctness
+does not grant teacher-output rights, and a stale result for changed candidate
+or reference bytes is rejected before constructing a pair.
 
 ## Interfaces and composition
 
