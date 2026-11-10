@@ -1,5 +1,8 @@
+from dataclasses import replace
 import unittest
-from model_distillation import Task, TeacherResponse, VerificationResult, verify_exact_match, build_preference_pair
+
+from model_distillation import Task, TeacherResponse, build_preference_pair
+from verification_runtime import verify_exact_match
 
 
 class DistillationTests(unittest.TestCase):
@@ -7,31 +10,36 @@ class DistillationTests(unittest.TestCase):
         self.task = Task("math-1", "math", "2+2?", 0.1, "4")
         self.chosen = TeacherResponse("math-1", "a", "4", "MIT", True)
         self.rejected = TeacherResponse("math-1", "b", "5", "MIT", True)
+        self.result = verify_exact_match(subject_id=self.task.task_id,
+                                         candidate=self.chosen.response,
+                                         reference=self.task.expected_answer)
 
-    def test_verification_and_pair(self):
-        result = verify_exact_match(self.task, self.chosen)
-        self.assertTrue(result.accepted)
-        pair = build_preference_pair(self.task, self.chosen, self.rejected, result)
+    def test_verified_pair(self):
+        pair = build_preference_pair(self.task, self.chosen, self.rejected, self.result)
         self.assertEqual((pair.chosen, pair.rejected), ("4", "5"))
 
-    def test_disallowed_output_fails_verification(self):
-        response = TeacherResponse("math-1", "a", "4", "unknown", False)
-        self.assertFalse(verify_exact_match(self.task, response).accepted)
+    def test_correct_but_ineligible_responses_still_fail_pair_policy(self):
+        self.assertTrue(self.result.accepted)
+        for chosen, rejected in ((replace(self.chosen, allowed_for_distillation=False), self.rejected),
+                                 (self.chosen, replace(self.rejected, allowed_for_distillation=False))):
+            with self.assertRaises(ValueError):
+                build_preference_pair(self.task, chosen, rejected, self.result)
 
-    def test_missing_answer_and_mismatched_task_fail(self):
-        task = Task("math-1", "math", "2+2?", 0.1)
-        self.assertFalse(verify_exact_match(task, self.chosen).accepted)
-        self.assertFalse(verify_exact_match(self.task, TeacherResponse("other", "a", "4", "MIT", True)).accepted)
+    def test_changed_response_reference_or_subject_rejects_stale_verification(self):
+        for task, chosen, rejected, result in (
+            (self.task, replace(self.chosen, response="5"), self.rejected, self.result),
+            (replace(self.task, expected_answer="5"), self.chosen, self.rejected, self.result),
+            (self.task, self.chosen, self.rejected, replace(self.result, subject_id="other")),
+            (self.task, self.chosen, replace(self.rejected, task_id="other"), self.result),
+            (self.task, self.chosen, self.rejected, replace(self.result, accepted=False)),
+        ):
+            with self.subTest(task=task, chosen=chosen, result=result), self.assertRaises(ValueError):
+                build_preference_pair(task, chosen, rejected, result)
 
-    def test_pair_rejects_unbound_verification_and_ineligible_output(self):
-        for result in (VerificationResult("math-1", "a", False, "exact_match", "failed"),
-                       VerificationResult("other", "a", True, "exact_match", "wrong task"),
-                       VerificationResult("math-1", "other", True, "exact_match", "wrong teacher")):
-            with self.subTest(result=result), self.assertRaises(ValueError):
-                build_preference_pair(self.task, self.chosen, self.rejected, result)
-        bad = TeacherResponse("math-1", "b", "5", "unknown", False)
-        with self.assertRaises(ValueError):
-            build_preference_pair(self.task, self.chosen, bad, verify_exact_match(self.task, self.chosen))
+    def test_verification_has_one_external_owner(self):
+        import model_distillation
+        self.assertFalse(hasattr(model_distillation, "VerificationResult"))
+        self.assertFalse(hasattr(model_distillation, "verify_exact_match"))
 
 
 if __name__ == "__main__":

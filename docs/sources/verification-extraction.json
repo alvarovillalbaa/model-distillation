@@ -1,0 +1,215 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-10",
+  "source_repository": "alvarovillalbaa/model-distillation",
+  "source_revision": "89ae0b3b642566e385be1a292843419bb9ffbdd3",
+  "new_repository": "alvarovillalbaa/verification-runtime",
+  "new_repository_revision": "0f293f9808598a38f58f85563e1ccafd815bbd36",
+  "files": [
+    {
+      "source_path": ".gitignore",
+      "source_sha256": "3a27b824fbf244f560dca603e815b1d38eb2ab811954de1e3303f6aa346cd729",
+      "destinations": [
+        {
+          "repository": "model-distillation",
+          "path": ".gitignore",
+          "sha256": "3a27b824fbf244f560dca603e815b1d38eb2ab811954de1e3303f6aa346cd729",
+          "relation": "retained_or_adapted"
+        }
+      ]
+    },
+    {
+      "source_path": "AGENTS.md",
+      "source_sha256": "9b014bf414fd84f22a7b613fb8ff9efc17825bf3e378899fbb92bbe4b88be144",
+      "destinations": [
+        {
+          "repository": "model-distillation",
+          "path": "AGENTS.md",
+          "sha256": "9b014bf414fd84f22a7b613fb8ff9efc17825bf3e378899fbb92bbe4b88be144",
+          "relation": "retained_or_adapted"
+        }
+      ]
+    },
+    {
+      "source_path": "LICENSE",
+      "source_sha256": "6e3ae862a0f98e9f377f98f71fd86160932dad7186416f5509a335703c6fe3b5",
+      "destinations": [
+        {
+          "repository": "model-distillation",
+          "path": "LICENSE",
+          "sha256": "6e3ae862a0f98e9f377f98f71fd86160932dad7186416f5509a335703c6fe3b5",
+          "relation": "retained_or_adapted"
+        }
+      ]
+    },
+    {
+      "source_path": "README.md",
+      "source_sha256": "8484afeef2fe2eb92d1610cb4c9724da46d3d0b5cc13399155d0abcd4fbfa06d",
+      "destinations": [
+        {
+          "repository": "model-distillation",
+          "path": "README.md",
+          "sha256": "96a050320235f37c671093852a795164e0c923decedb3f9c34d914f3552daf69",
+          "relation": "retained_or_adapted"
+        }
+      ]
+    },
+    {
+      "source_path": "docs/results/2026/11-10/installed-package.json",
+      "source_sha256": "89982de7683836d01a00b3a3394913b5ca64cb559b5ca95c83b7105cf49c8f3d",
+      "destinations": [
+        {
+          "repository": "model-distillation",
+          "path": "docs/results/2026/11-10/installed-package.json",
+          "sha256": "89982de7683836d01a00b3a3394913b5ca64cb559b5ca95c83b7105cf49c8f3d",
+          "relation": "retained_or_adapted"
+        }
+      ]
+    },
+    {
+      "source_path": "docs/results/2026/11-10/repository-split.json",
+      "source_sha256": "bf11838bfa90aa6d4910c68752d669afbdfdd7a9cdd0ebc5efbab01040079884",
+      "destinations": [
+        {
+          "repository": "model-distillation",
+          "path": "docs/results/2026/11-10/repository-split.json",
+          "sha256": "bf11838bfa90aa6d4910c68752d669afbdfdd7a9cdd0ebc5efbab01040079884",
+          "relation": "retained_or_adapted"
+        }
+      ]
+    },
+    {
+      "source_path": "docs/sources/lab-provenance.json",
+      "source_sha256": "e683d8a0219a2949ade88b2915210b7e6bedd3b3f2517b704376041df6642b5e",
+      "destinations": [
+        {
+          "repository": "model-distillation",
+          "path": "docs/sources/lab-provenance.json",
+          "sha256": "e683d8a0219a2949ade88b2915210b7e6bedd3b3f2517b704376041df6642b5e",
+          "relation": "retained_or_adapted"
+        }
+      ]
+    },
+    {
+      "source_path": "docs/specs/README.md",
+      "source_sha256": "3d69b48c657ce51f218b28367d1a9b546ad6f737a6d4c3e05ea242ad61c6bdc2",
+      "destinations": [
+        {
+          "repository": "model-distillation",
+          "path": "docs/specs/README.md",
+          "sha256": "eca25dea9ed6614de928954d0a3e767d77acb75feafdb8c3dc97e647d63bbb8d",
+          "relation": "retained_or_adapted"
+        }
+      ]
+    },
+    {
+      "source_path": "docs/specs/backlog.md",
+      "source_sha256": "e818e5e779537fa9667bf3396065f432045d8e6452173929eef55886262aa6a9",
+      "destinations": [
+        {
+          "repository": "model-distillation",
+          "path": "docs/specs/backlog.md",
+          "sha256": "e818e5e779537fa9667bf3396065f432045d8e6452173929eef55886262aa6a9",
+          "relation": "retained_or_adapted"
+        }
+      ]
+    },
+    {
+      "source_path": "docs/specs/blueprint.md",
+      "source_sha256": "bc4e9fa226d330f795ecfe384c40824c43ec06d94dcdcf1002c8c824cc79a449",
+      "destinations": [
+        {
+          "repository": "model-distillation",
+          "path": "docs/specs/blueprint.md",
+          "sha256": "bc4e9fa226d330f795ecfe384c40824c43ec06d94dcdcf1002c8c824cc79a449",
+          "relation": "retained_or_adapted"
+        }
+      ]
+    },
+    {
+      "source_path": "examples/quickstart.py",
+      "source_sha256": "4ae8aee358c87b7d8c559b27931781e02fc1ffb3839a8f3056b1658d4f5daf8b",
+      "destinations": [
+        {
+          "repository": "model-distillation",
+          "path": "examples/quickstart.py",
+          "sha256": "8e7620bd1fe6809b59dbe3bb454f807c601e33f86015eef483b6726d42734b46",
+          "relation": "retained_or_adapted"
+        }
+      ]
+    },
+    {
+      "source_path": "pyproject.toml",
+      "source_sha256": "7b0e8ba71ff83ea0e4d21dc66e0efe8f6e14f527e5b3c566504d2849305e4168",
+      "destinations": [
+        {
+          "repository": "model-distillation",
+          "path": "pyproject.toml",
+          "sha256": "546b5a1fab59d4537fffed66eac86c809800d7d29b23f0911b8e6d2fca264c6b",
+          "relation": "retained_or_adapted"
+        }
+      ]
+    },
+    {
+      "source_path": "src/model_distillation/__init__.py",
+      "source_sha256": "87c113a8a1d4e2336ac960c77b25c93382b57c0ec6b35f54a275d6b3fe44cf99",
+      "destinations": [
+        {
+          "repository": "model-distillation",
+          "path": "src/model_distillation/__init__.py",
+          "sha256": "3195eff683354fd49a1308cc535e744b98595065de5c78e72b2b3c67919353cb",
+          "relation": "retained_or_adapted"
+        }
+      ]
+    },
+    {
+      "source_path": "src/model_distillation/cli.py",
+      "source_sha256": "8e5311d576fd5742c9cbbaa76372f3c1e46ff5b51d60838af6b275386386c944",
+      "destinations": [
+        {
+          "repository": "model-distillation",
+          "path": "src/model_distillation/cli.py",
+          "sha256": "a643f2b63e0c9c1518768473eb7e8fbe024d90e0af3245c8facb864d973badbe",
+          "relation": "retained_or_adapted"
+        }
+      ]
+    },
+    {
+      "source_path": "src/model_distillation/distillation.py",
+      "source_sha256": "cf38049d57204c6c3680c7d193e6236f195bd13a215ed941b9b860724dbcb268",
+      "destinations": [
+        {
+          "repository": "model-distillation",
+          "path": "src/model_distillation/distillation.py",
+          "sha256": "3dddf7e6e5dc3e1bb322190e7be6c0de07ff133e2969bcd8014e75e4e3e60475",
+          "relation": "retained_or_adapted"
+        },
+        {
+          "repository": "verification-runtime",
+          "path": "docs/sources/pre-extraction/distillation.py",
+          "sha256": "cf38049d57204c6c3680c7d193e6236f195bd13a215ed941b9b860724dbcb268",
+          "relation": "exact_original_archive"
+        },
+        {
+          "repository": "verification-runtime",
+          "path": "src/verification_runtime/verification.py",
+          "sha256": "6537bf774650c6ae1967be6f0b8280ac93c30de7faf8560ca8ffb0fca717d45d",
+          "relation": "pure_verification_adapted"
+        }
+      ]
+    },
+    {
+      "source_path": "tests/test_distillation.py",
+      "source_sha256": "7ba83368a9045c4df15ad0fd798c2704a0ed5c1eac8774f2466fa5838ee270bc",
+      "destinations": [
+        {
+          "repository": "model-distillation",
+          "path": "tests/test_distillation.py",
+          "sha256": "e65b2a5fa04070fe1dd02385968603747e0ae4db52e6b08ab78b66fd3f802e7c",
+          "relation": "retained_or_adapted"
+        }
+      ]
+    }
+  ],
+  "policy": "Complete prior inventory is retained or adapted. Exact archive destinations preserve original bytes. Historical prior maps/receipts are not rewritten."
+}

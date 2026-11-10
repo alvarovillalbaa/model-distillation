@@ -4,7 +4,10 @@ Last updated: 2026-11-10
 
 Construct verifier-gated preference data from explicitly permitted teacher responses.
 
-**Status: implemented.** A standard-library Python 3.11+ library and CLI are present. Wheel construction and independent installation passed on Python 3.14.7; see the [installed acceptance receipt](docs/results/2026/11-10/installed-package.json).
+**Status: implemented.** Version 0.2 is a Python 3.11+ library and CLI with an
+explicit pinned verification-runtime dependency. The
+[0.1 installed receipt](docs/results/2026/11-10/installed-package.json) is
+historical; acceptance for this extraction is recorded separately in Lab.
 
 ## Independent use
 
@@ -20,7 +23,11 @@ No sibling checkout, GPU, account, database, or network service is needed for th
 
 ## Ownership
 
-Task/response records, exact-match verification, eligibility gates, and preference-pair construction.
+Task/response records, teacher eligibility, verification-result binding and
+preference-pair construction. Objective answer checking belongs to
+[verification-runtime](https://github.com/alvarovillalbaa/verification-runtime).
+Import its `VerificationResult` and `verify_exact_match` directly; version 0.2
+removes those old model-distillation exports.
 
 Outside this component: Teacher inference, a training engine, a general evaluation platform, or legal license approval.
 
@@ -32,4 +39,8 @@ Use independently, or register a pinned version in [Lab](https://github.com/alva
 
 MIT applies to the code and authored documentation in this repository. External datasets, model weights, provider services, and third-party projects retain their own terms.
 
-The demo uses authored fixture responses and makes no model call. `allowed_for_distillation` is a caller assertion; it does not establish legal rights. Pair construction requires eligible responses and a verification result bound to the chosen task/teacher. It does not independently prove the verifier is correct.
+The demo uses authored fixture responses and makes no model call.
+`allowed_for_distillation` is a caller assertion; it does not establish legal
+rights. Pair construction requires eligible responses and a result bound to
+the task ID, original chosen-response bytes and expected-reference bytes.
+It does not independently authenticate the verifier or establish its correctness.

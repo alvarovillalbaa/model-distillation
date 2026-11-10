@@ -1,9 +1,10 @@
-"""Small distillation primitives for verifier-gated data generation."""
-
+"""Teacher eligibility and preference-data construction over external verification."""
 from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import Any
+
+from verification_runtime import VerificationResult as _VerificationResult, text_sha256
 
 
 @dataclass(frozen=True)
@@ -25,15 +26,6 @@ class TeacherResponse:
 
 
 @dataclass(frozen=True)
-class VerificationResult:
-    task_id: str
-    teacher_id: str
-    accepted: bool
-    verifier: str
-    reason: str
-
-
-@dataclass(frozen=True)
 class PreferencePair:
     task_id: str
     chosen: str
@@ -41,44 +33,19 @@ class PreferencePair:
     source: str
 
 
-def verify_exact_match(task: Task, response: TeacherResponse) -> VerificationResult:
-    if response.task_id != task.task_id:
-        return VerificationResult(task.task_id, response.teacher_id, False, "exact_match", "response belongs to another task")
-    if not response.allowed_for_distillation:
-        return VerificationResult(
-            task_id=task.task_id,
-            teacher_id=response.teacher_id,
-            accepted=False,
-            verifier="exact_match",
-            reason="teacher output is not allowed for distillation",
-        )
-    if task.expected_answer is None:
-        return VerificationResult(
-            task_id=task.task_id,
-            teacher_id=response.teacher_id,
-            accepted=False,
-            verifier="exact_match",
-            reason="task has no expected answer",
-        )
-    accepted = response.response.strip() == task.expected_answer.strip()
-    return VerificationResult(
-        task_id=task.task_id,
-        teacher_id=response.teacher_id,
-        accepted=accepted,
-        verifier="exact_match",
-        reason="matched expected answer" if accepted else "did not match expected answer",
-    )
-
 def build_preference_pair(
     task: Task,
     accepted: TeacherResponse,
     rejected: TeacherResponse,
-    accepted_result: VerificationResult,
+    accepted_result: _VerificationResult,
 ) -> PreferencePair:
     if not accepted_result.accepted:
         raise ValueError("accepted_result must be accepted before building a preference pair")
-    if accepted_result.task_id != task.task_id or accepted_result.teacher_id != accepted.teacher_id:
-        raise ValueError("verification must belong to the chosen response and task")
+    reference_hash = text_sha256(task.expected_answer) if task.expected_answer is not None else None
+    if (accepted_result.subject_id != task.task_id
+            or accepted_result.candidate_sha256 != text_sha256(accepted.response)
+            or accepted_result.reference_sha256 != reference_hash):
+        raise ValueError("verification must belong to the chosen response bytes, task and reference")
     if not accepted.allowed_for_distillation or not rejected.allowed_for_distillation:
         raise ValueError("both responses must be eligible for distillation")
     if accepted.task_id != task.task_id or rejected.task_id != task.task_id:

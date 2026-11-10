@@ -3,14 +3,16 @@ import argparse
 import json
 from dataclasses import asdict
 
-from . import Task, TeacherResponse, build_preference_pair, verify_exact_match
+from . import Task, TeacherResponse, build_preference_pair
+from verification_runtime import verify_exact_match
 
 
 def demo_pair():
     task = Task("math-1", "math", "2+2?", 0.1, expected_answer="4")
     chosen = TeacherResponse(task.task_id, "fixture-a", "4", "MIT", True)
     rejected = TeacherResponse(task.task_id, "fixture-b", "5", "MIT", True)
-    result = verify_exact_match(task, chosen)
+    result = verify_exact_match(subject_id=task.task_id, candidate=chosen.response,
+                                reference=task.expected_answer)
     return build_preference_pair(task, chosen, rejected, result)
 
 
