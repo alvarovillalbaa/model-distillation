@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-10",
+  "status": "passed",
+  "source_revision": "c79864d530aa82fb6db7d58c83e2f53719e43587",
+  "wheel": {
+    "filename": "model_distillation-0.1.0-py3-none-any.whl",
+    "sha256": "0199cb5597e22954d917c584e4a43e18697df8aac93cf402243fa07a4903e385",
+    "size_bytes": 4435
+  },
+  "standalone": {
+    "status": "passed",
+    "distribution": "model-distillation",
+    "profile": null,
+    "installed": {
+      "model-distillation": {
+        "version": "0.1.0",
+        "module": "<environment>/lib/python3.14/site-packages/model_distillation/__init__.py"
+      }
+    },
+    "cli_checks": [
+      "preference fixture"
+    ],
+    "sdk_transport": "not used"
+  },
+  "tools": {
+    "python": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]",
+    "uv": "uv 0.10.3 (Homebrew 2026-02-16)",
+    "setuptools": [
+      "84.2.1"
+    ]
+  },
+  "method": "Isolated PEP 517 wheel build and fresh runtime environment; Python -I checks outside checkout, no editable install or sibling imports.",
+  "scope": "Only this component was installed in its standalone runtime environment.",
+  "full_evidence": "https://github.com/alvarovillalbaa/lab/pull/2",
+  "limits": [
+    "Python 3.14.7 on this Mac was exercised; no cross-platform/version matrix is claimed.",
+    "SDK HTTP transport is mocked; no live service, provider, model, GPU, database, deployment, or scientific performance proof."
+  ]
+}

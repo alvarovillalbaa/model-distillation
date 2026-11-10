@@ -4,7 +4,7 @@ Last updated: 2026-11-10
 
 Construct verifier-gated preference data from explicitly permitted teacher responses.
 
-**Status: implemented.** A standard-library Python 3.11+ library and CLI are present. Installation/build proof is recorded separately from source checks.
+**Status: implemented.** A standard-library Python 3.11+ library and CLI are present. Wheel construction and independent installation passed on Python 3.14.7; see the [installed acceptance receipt](docs/results/2026/11-10/installed-package.json).
 
 ## Independent use
 
