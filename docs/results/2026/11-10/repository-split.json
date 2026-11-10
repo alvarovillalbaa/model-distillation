@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-10",
+  "repository": "alvarovillalbaa/model-distillation",
+  "implementation_status": "implemented",
+  "source_revision": "ba67e510bab2703b1042993744ce099490221c1f",
+  "checks": {
+    "source_tests": {
+      "exit_code": 0,
+      "output": "test_disallowed_output_fails_verification (test_distillation.DistillationTests.test_disallowed_output_fails_verification) ... ok\ntest_missing_answer_and_mismatched_task_fail (test_distillation.DistillationTests.test_missing_answer_and_mismatched_task_fail) ... ok\ntest_pair_rejects_unbound_verification_and_ineligible_output (test_distillation.DistillationTests.test_pair_rejects_unbound_verification_and_ineligible_output) ... ok\ntest_verification_and_pair (test_distillation.DistillationTests.test_verification_and_pair) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.000s\n\nOK\n",
+      "method": "Existing interpreter, explicit single source root, working directory outside repository; no installation"
+    },
+    "staged_whitespace": "passed"
+  },
+  "limits": [
+    "Fresh install and wheel build not run: Storage Guard reports 11.9 GiB free versus 34 GiB required.",
+    "No GPU, provider, model download, paid service, production deployment, or scientific performance claim."
+  ]
+}

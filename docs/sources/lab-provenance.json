@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "source_repository": "alvarovillalbaa/lab",
+  "source_revision": "ba67e510bab2703b1042993744ce099490221c1f",
+  "original_main": "36bb3839f1bc166fa54824fd8457b28ca5189dae",
+  "history_policy": "Original history remains in Lab; extraction commit preserves original bytes; subsequent commits adapt interfaces.",
+  "sources": [
+    {
+      "path": "docs/specs/steps.md",
+      "section": 13,
+      "start_line": 581,
+      "end_line": 767
+    },
+    {
+      "path": "docs/IMPLEMENTATION_BACKLOG.md",
+      "sections": [
+        "Distillation"
+      ]
+    },
+    {
+      "path": "src/lab/distillation.py",
+      "destination": "src/model_distillation/distillation.py",
+      "source_sha256": "8a23d3fe62c18febc664c4c9bca05b06b08b04980c98dda2193d099033b2c34b"
+    },
+    {
+      "path": "tests/test_distillation_scheduler.py",
+      "destination": "tests/test_distillation.py",
+      "source_sha256": "a76ceadd305887ccd1496e599a993d8bec689c8c26c58ec965f7e351b69441fb"
+    }
+  ]
+}

@@ -1,43 +1,38 @@
 import unittest
-
-from lab.distillation import (
-    TeacherResponse,
-    Task,
-    build_preference_pair,
-    verify_exact_match,
-)
-from lab.scheduler import Job, cheapest_first, value_first, value_per_dollar
+from model_distillation import Task, TeacherResponse, VerificationResult, verify_exact_match, build_preference_pair
 
 
-class DistillationSchedulerTests(unittest.TestCase):
-    def test_exact_match_respects_license_gate(self):
-        task = Task("math-1", "math", "2+2?", 0.1, expected_answer="4")
-        response = TeacherResponse("math-1", "teacher", "4", "apache-2.0", True)
+class DistillationTests(unittest.TestCase):
+    def setUp(self):
+        self.task = Task("math-1", "math", "2+2?", 0.1, "4")
+        self.chosen = TeacherResponse("math-1", "a", "4", "MIT", True)
+        self.rejected = TeacherResponse("math-1", "b", "5", "MIT", True)
 
-        result = verify_exact_match(task, response)
-
+    def test_verification_and_pair(self):
+        result = verify_exact_match(self.task, self.chosen)
         self.assertTrue(result.accepted)
+        pair = build_preference_pair(self.task, self.chosen, self.rejected, result)
+        self.assertEqual((pair.chosen, pair.rejected), ("4", "5"))
 
-    def test_preference_pair_requires_accepted_result(self):
-        task = Task("math-1", "math", "2+2?", 0.1, expected_answer="4")
-        chosen = TeacherResponse("math-1", "teacher-a", "4", "apache-2.0", True)
-        rejected = TeacherResponse("math-1", "teacher-b", "5", "apache-2.0", True)
-        result = verify_exact_match(task, chosen)
+    def test_disallowed_output_fails_verification(self):
+        response = TeacherResponse("math-1", "a", "4", "unknown", False)
+        self.assertFalse(verify_exact_match(self.task, response).accepted)
 
-        pair = build_preference_pair(task, chosen, rejected, result)
+    def test_missing_answer_and_mismatched_task_fail(self):
+        task = Task("math-1", "math", "2+2?", 0.1)
+        self.assertFalse(verify_exact_match(task, self.chosen).accepted)
+        self.assertFalse(verify_exact_match(self.task, TeacherResponse("other", "a", "4", "MIT", True)).accepted)
 
-        self.assertEqual(pair.chosen, "4")
-        self.assertEqual(pair.rejected, "5")
-
-    def test_value_first_prefers_information_per_risk_adjusted_dollar(self):
-        cheap_low_value = Job("cheap", "evals", expected_value=1, expected_cost_usd=1, risk=1)
-        useful = Job("useful", "evals", expected_value=10, expected_cost_usd=2, risk=1)
-
-        self.assertGreater(value_per_dollar(useful), value_per_dollar(cheap_low_value))
-        self.assertEqual(value_first([cheap_low_value, useful])[0].job_id, "useful")
-        self.assertEqual(cheapest_first([useful, cheap_low_value])[0].job_id, "cheap")
+    def test_pair_rejects_unbound_verification_and_ineligible_output(self):
+        for result in (VerificationResult("math-1", "a", False, "exact_match", "failed"),
+                       VerificationResult("other", "a", True, "exact_match", "wrong task"),
+                       VerificationResult("math-1", "other", True, "exact_match", "wrong teacher")):
+            with self.subTest(result=result), self.assertRaises(ValueError):
+                build_preference_pair(self.task, self.chosen, self.rejected, result)
+        bad = TeacherResponse("math-1", "b", "5", "unknown", False)
+        with self.assertRaises(ValueError):
+            build_preference_pair(self.task, self.chosen, bad, verify_exact_match(self.task, self.chosen))
 
 
 if __name__ == "__main__":
     unittest.main()
-

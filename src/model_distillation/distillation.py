@@ -42,6 +42,8 @@ class PreferencePair:
 
 
 def verify_exact_match(task: Task, response: TeacherResponse) -> VerificationResult:
+    if response.task_id != task.task_id:
+        return VerificationResult(task.task_id, response.teacher_id, False, "exact_match", "response belongs to another task")
     if not response.allowed_for_distillation:
         return VerificationResult(
             task_id=task.task_id,
@@ -67,7 +69,6 @@ def verify_exact_match(task: Task, response: TeacherResponse) -> VerificationRes
         reason="matched expected answer" if accepted else "did not match expected answer",
     )
 
-
 def build_preference_pair(
     task: Task,
     accepted: TeacherResponse,
@@ -76,6 +77,10 @@ def build_preference_pair(
 ) -> PreferencePair:
     if not accepted_result.accepted:
         raise ValueError("accepted_result must be accepted before building a preference pair")
+    if accepted_result.task_id != task.task_id or accepted_result.teacher_id != accepted.teacher_id:
+        raise ValueError("verification must belong to the chosen response and task")
+    if not accepted.allowed_for_distillation or not rejected.allowed_for_distillation:
+        raise ValueError("both responses must be eligible for distillation")
     if accepted.task_id != task.task_id or rejected.task_id != task.task_id:
         raise ValueError("responses must belong to the task")
     return PreferencePair(
@@ -94,4 +99,3 @@ def task_from_record(record: dict[str, Any]) -> Task:
         difficulty=float(record.get("difficulty", 0.0)),
         expected_answer=record.get("expected_answer"),
     )
-
