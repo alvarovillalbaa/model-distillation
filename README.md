@@ -1,5 +1,9 @@
 # model-distillation
 
+<!-- project-family:start -->
+> **Project family:** [AI Research Lab](https://github.com/alvarovillalbaa#ai-research-lab) · **Area:** Distillation
+<!-- project-family:end -->
+
 Last updated: 2026-11-10
 
 Construct verifier-gated preference data from explicitly permitted teacher responses.
